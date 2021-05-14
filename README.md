@@ -15,4 +15,24 @@ Ever wanted to keep track of your repositories the easiest way possibile? This t
 
 ### Self hosting
 1. Create a bot with [BotFather](https://t.me/BotFather)
-2. 
+2. Upload ```bot.php``` to your webspace
+3. Update your bot token on line 2 of  ```bot.php``` 
+4. Tell Telegram to use your Bot by calling ```bot.php?webhook&token=<yourbottoken>```
+5. Start your Bot and copy webhook url
+6. Add webhook url to your repository
+7. Get notified!
+
+## 🔘 Supported GitHub Events
+Currently supports the following types of [HTTP_X_GITHUB_EVENT](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/webhook-events-and-payloads)
+* ```push```
+* ```ping```
+* ```issues```
+* ```member```
+* ```deploy_key```
+* ```pull_request```
+* ```delete```
+* ```create```
+* ```public```
+* ```release```
+* ```star```
+* ```fork```
