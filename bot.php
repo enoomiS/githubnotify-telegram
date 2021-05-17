@@ -1,6 +1,6 @@
 <?php
 
-define('BOT_TOKEN', '1622028953:AAErwYP8lyG57C7nXRjyANE4egX3vFfvjLo'); // Token of your bot
+define('BOT_TOKEN', 'XXXXXXXXXXXXXXXXXX'); // Token of your bot
 define('BOT_NAME', 'GithubAlertsBot'); // Name of your Bot
 setlocale(LC_TIME, "it_IT"); //Set locale for Timestrings
 define('DATETIME_FORMAT', "d.m.y - H:i:s");
