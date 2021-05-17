@@ -135,12 +135,13 @@ function processMessage($message)
         $text = $message['text'];
 
         if (strpos($text, "/start") === 0) {
-            $rmf[] = [['text' => '🔗 Source Code', 'url' => 'https://github.com/enoomiS/githubnotify-telegram']];
-        	  $rm = ['inline_keyboard' => $rmf];
-            $welcome_msg = "Hi 🙋!\nGo to  <i>github.com / your-username / your-repository >> Settings</i>  and add this URL as new Webhook (Content type: <b>application/JSON</b>)\n\n";
-            $compose_url = BOT_URL . '?chatid=' . $chat_id;
-            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $welcome_msg . "<code>" . $compose_url . "</code>", 'reply_markup' => json_encode($rm)));
-        }
+          $rmf[] = [['text' => '📣 Channel', 'url' => 'https://t.me/enomiSProjects']];
+          $rmf[] = [['text' => '🔗 Source Code', 'url' => 'https://github.com/enoomiS/githubnotify-telegram']];
+          $rm = ['inline_keyboard' => $rmf];
+          $welcome_msg = "Hi 🙋!\nGo to  <i>github.com / your-username / your-repository >> Settings</i>  and add this URL as new Webhook (Content type: <b>application/JSON</b>)\n\n";
+          $compose_url = BOT_URL . '?chatid=' . $chat_id;
+          apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $welcome_msg . "<code>" . $compose_url . "</code>" . "\n\n✍️ Code created by @enoomiS", 'reply_markup' => json_encode($rm)));
+      }
     } else {
     }
 }
