@@ -1,7 +1,7 @@
 <?php
 
-define('BOT_TOKEN', 'XXXXX'); // Token of your bot
-define('BOT_NAME', 'hellogithub_bot'); // Name of your Bot
+define('BOT_TOKEN', '1622028953:AAErwYP8lyG57C7nXRjyANE4egX3vFfvjLo'); // Token of your bot
+define('BOT_NAME', 'GithubAlertsBot'); // Name of your Bot
 setlocale(LC_TIME, "it_IT"); //Set locale for Timestrings
 define('DATETIME_FORMAT', "d.m.y - H:i:s");
 define('BOT_URL', $_SERVER["SCRIPT_URI"]);
@@ -135,32 +135,11 @@ function processMessage($message)
         $text = $message['text'];
 
         if (strpos($text, "/start") === 0) {
+            $rmf[] = [['text' => '🔗 Source Code', 'url' => 'https://github.com/enoomiS/githubnotify-telegram']];
+        	  $rm = ['inline_keyboard' => $rmf];
             $welcome_msg = "Hi 🙋!\nGo to  <i>github.com / your-username / your-repository >> Settings</i>  and add this URL as new Webhook (Content type: <b>application/JSON</b>)\n\n";
             $compose_url = BOT_URL . '?chatid=' . $chat_id;
-            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $welcome_msg . "<code>" . $compose_url . "</code>", 'reply_markup' => array('remove_keyboard' => true)));
-        } elseif (strpos($text, "/version") === 0) {
-            $hash = hash_file('md5', 'bot.php');
-            $headcommit  = exec('git rev-parse HEAD');
-            $git_tag = exec('git tag');
-
-            $info_msg =  "<code>┌───╂Version╂───┐</code>\n";
-            $info_msg .= "Location: <code>" . BOT_URL . "</code>\n";
-            if ($git_tag != "") {
-                $info_msg .= "Release <code>" . $git_tag . "</code>\n";
-            }
-            if ($headcommit != "") {
-                $info_msg .= "HEAD at <code>" . $headcommit . "</code>\n";
-            }
-            if ($hash != "") {
-                $info_msg .= "MD5 of <i>'bot.php'</i> <code>" . $hash . "</code>\n";
-            }
-            $info_msg .= "<code>└───────────────┘</code>";
-
-            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $info_msg, 'reply_markup' => array('remove_keyboard' => true)));
-        } elseif ($text === "Hello" || $text === "Hi" || $text === "Hallo") {
-            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Nice to meet you!'));
-        } elseif (strpos($text, "/stop") === 0) {
-            // Nothing to stop at all
+            apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => $welcome_msg . "<code>" . $compose_url . "</code>", 'reply_markup' => json_encode($rm)));
         }
     } else {
     }
@@ -194,7 +173,7 @@ function makeName($update, $withHyperlink = true)
     if ($u_name != "" && $update["head_commit"]["author"]["username"] != "") {
         $u_name .= " (" . $update["head_commit"]["author"]["username"] . ")";
     }
-    # From head commit: If no name specified, try username only 
+    # From head commit: If no name specified, try username only
     if ($u_name == "") {
         $u_name = $update["head_commit"]["author"]["username"];
     }
@@ -507,6 +486,7 @@ if ($_GET["chatid"]) {
     }
 
     ($replyTo != "")?apiRequest("sendMessage", array('chat_id' => $_GET["chatid"], "text" => $replyTo)):exit;
-    
+
 } else {
 }
+
